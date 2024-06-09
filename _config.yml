@@ -21,12 +21,12 @@ repository               : "academicpages/academicpages.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "85390538.jpg"
   name             : "Dustin Nguyen"
   pronouns         : # example: "she/her"  
-  bio              : "Short biography for the left-hand sidebar"
+  bio              : "Physics student"
   location         : "Vietnam"
-  employer         : "Ho Chi Minh City University of Science"
+  employer         : "VNUHCM-US"
   uri              : # URL
   email            : "dustnn00@gmail.com" 
 
