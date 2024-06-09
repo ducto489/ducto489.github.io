@@ -8,9 +8,9 @@
 
 # Basic Site Settings
 locale                   : "vn-Vietnam"
-title                    : "Dustin Nguyen / Site Title"
+title                    : "Dustin Nguyen"
 title_separator          : "-"
-name                     : &name "Your Name"
+name                     : &name "Dustin Nguyen"
 description              : &description "personal description"
 url                      : https://ducto489.github.io/ # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
