@@ -1,5 +1,7 @@
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I’m Dustin Nguyen, an undergraduate Physics student at [VNUHCM - University of Science in Vietnam](https://en.hcmus.edu.vn/). Alongside my studies, I’m a self-taught Machine Learning learner. Check out some of my fun [project](/projects/) about Physics and ML.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+I'm passionate about exploring how machine learning can solve complex physics problems. Let's see how far the AI can bring us!
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+In my free time, I enjoy reading, watching anime, and traveling. 
+
+I'm always open to interesting conversations and collaborations Feel free to reach out via email or Facebook!
