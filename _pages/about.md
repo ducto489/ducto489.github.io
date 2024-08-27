@@ -20,4 +20,4 @@ I'm passionate about exploring how machine learning can solve complex physics pr
 
 In my free time, I enjoy reading book, watching anime, and traveling. 
 
-I'm always open to interesting conversations and collaborations Feel free to reach out via email or Facebook!
+I'm always open to interesting conversations and collaborations. Feel free to reach out via email or Facebook!
