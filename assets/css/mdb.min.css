@@ -88,6 +88,10 @@
   -webkit-transition: all 0.55s ease-in-out;
   transition: all 0.55s ease-in-out;
 }
+.z-depth-0 {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
 .z-depth-1 {
   -webkit-box-shadow:
     0 2px 5px 0 rgba(0, 0, 0, 0.16),
@@ -2924,6 +2928,10 @@ a.waves-light {
 
 .btn .far.left {
   margin-right: 0.3rem;
+}
+.btn.btn-sm {
+  padding: 0.5rem 1.6rem;
+  font-size: 0.64rem;
 }
 .btn.disabled:hover,
 .btn.disabled:focus,

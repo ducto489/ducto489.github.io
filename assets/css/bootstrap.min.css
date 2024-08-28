@@ -430,6 +430,7 @@ pre code {
 .col-md-2,
 .col-md-6,
 .col-sm,
+.col-sm-10,
 .col-sm-3,
 .col-sm-9 {
   position: relative;
@@ -471,6 +472,11 @@ pre code {
     -ms-flex: 0 0 75%;
     flex: 0 0 75%;
     max-width: 75%;
+  }
+  .col-sm-10 {
+    -ms-flex: 0 0 83.333333%;
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
   }
 }
 @media (min-width: 768px) {
@@ -614,6 +620,13 @@ pre code {
 }
 a.btn.disabled {
   pointer-events: none;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
 }
 .fade {
   transition: opacity 0.15s linear;
