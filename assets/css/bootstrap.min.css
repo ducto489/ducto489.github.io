@@ -432,6 +432,8 @@ pre code {
 .col-sm,
 .col-sm-10,
 .col-sm-3,
+.col-sm-4,
+.col-sm-8,
 .col-sm-9 {
   position: relative;
   width: 100%;
@@ -467,6 +469,16 @@ pre code {
     -ms-flex: 0 0 25%;
     flex: 0 0 25%;
     max-width: 25%;
+  }
+  .col-sm-4 {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  .col-sm-8 {
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
   }
   .col-sm-9 {
     -ms-flex: 0 0 75%;
@@ -1679,6 +1691,12 @@ a.close.disabled {
 .justify-content-center {
   -ms-flex-pack: center !important;
   justify-content: center !important;
+}
+@media (min-width: 576px) {
+  .justify-content-sm-center {
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+  }
 }
 .float-right {
   float: right !important;
