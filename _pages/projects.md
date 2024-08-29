@@ -5,7 +5,7 @@ permalink: /projects/
 description: A growing collection of your cool projects.
 nav: true
 nav_order: 3
-display_categories: [physics, ML]
+display_categories: [Physics, Machine Learning]
 horizontal: false
 ---
 
