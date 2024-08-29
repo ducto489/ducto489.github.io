@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: distill
 title: Train GPT-2 with TPU
 description: Using TPU to speedup and recreate GPT-2 result
 tags: distill formatting 
@@ -8,18 +8,12 @@ date: 2024-08-29
 featured: true
 
 toc:
-  beginning: true
-#   - name: Challenges
-#     subsections:
-#       - name: Disk Memory
-#       - name: Training Extremely Slow
-#   - name: Result
+  - name: Challenges
+    subsections:
+      - name: Disk Memory
+      - name: Training Extremely Slow
+  - name: Result
 ---
-
-```yml
-toc:
-  beginning: true
-```
 
 This project was inspired by [Andrej Karparthy's video](https://youtu.be/l8pRSuU81PU?si=6_loh9yI5Fj6ut1g). 
 But if you don't have powerful GPUs or have money for GPU rental. We still can achieve GPT-2 124M performance with TPU on Kaggle! But we have some problems to solve.
@@ -37,7 +31,7 @@ GPU T4 doesn't support BF16. If we use float16 the loss will increase.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets\img\BUGtrainGPU.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/BUGtrainGPU.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -45,7 +39,7 @@ Using float32 is a pain in the neck when it slows down the training process very
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets\img\trainGPU.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/trainGPU.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -58,6 +52,6 @@ After applying TPU and BF16 and running for 18 hours I finally **surpassed GPT-2
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets\img\trainTPU.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/trainTPU.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
