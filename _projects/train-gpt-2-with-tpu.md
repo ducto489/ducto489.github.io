@@ -17,7 +17,7 @@ toc:
   - name: Result
 ---
 
-This project was inspired by [Andrej Karparthy's video](https://youtu.be/l8pRSuU81PU?si=6_loh9yI5Fj6ut1g). Here I stick to the GPT-2 and GPT-3 paper to reproduce the model and techniques. I applied gradient accumulation, distributed data parallel (GPU and TPU), half-precision, flash attention, and nice numbers (the number that can be divided by 2 the most). I trained on FineWeb (EDU), the same datasets that GPT-2 has trained on. For evaluation, I used a different dataset and HellaSwag for comparison to the GPT-2 paper.
+This project was inspired by [Andrej Karparthy's video](https://youtu.be/l8pRSuU81PU?si=6_loh9yI5Fj6ut1g). Here I stick to the GPT-2 and GPT-3 paper to reproduce the model and techniques. I applied gradient accumulation, distributed data parallel (GPU and TPU), half-precision, flash attention, and nice numbers (the number that can be divided by 2 the most). I trained on FineWeb (EDU), which is the same dataset that GPT -2 has trained on. For evaluation, I used a different dataset and a HellaSwag for comparison to the GPT-2 paper.
 
 But if you don't have powerful GPUs or have money for GPU rental. We still can achieve GPT-2 124M performance with TPU on Kaggle! But we have some problems to solve.
 
@@ -25,7 +25,7 @@ If you want to dive deep into my code, please have a look at this [notebook](htt
 
 ## Challenges
 ### Disk Memory
-In Kaggle we only have 40GB of disk memory. If we use the saving and loading data technique in Andrej Karpathy's videos,  we end up running out of disk space before the training stuff begins
+In Kaggle we only have 40GB of disk memory. If we use the saving and loading data technique in Andrej Karpathy's videos,  we end up running out of disk space before the training stuff begins.
 
 **Solution:** Use streaming techniques in the datasets library and two separate datasets for training and valuation. 
 
@@ -39,7 +39,7 @@ GPU T4 doesn't support BF16. If we use float16 the loss will increase.
     </div>
 </div>
 
-Using float32 is a pain in the neck when it slows down the training process very much. We achieved 7.400 tokens/sec. For comparison, Andrej Karparthy achieved 1.242.000 tokens/sec. After 12 hours of training, we reach the 295/19073 step. Not even close! 
+Using float32 causes pain in the neck when it slows down the training process very much. We achieved 7.400 tokens/sec. For comparison, Andrej Karparthy achieved 1.242.000 tokens/sec. After 12 hours of training, we reach the 295/19073 step. Not even close! 
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -59,3 +59,9 @@ After applying TPU and BF16 and running for 18 hours I finally **surpassed GPT-2
         {% include figure.liquid loading="eager" path="assets/img/trainTPU.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
+
+Here are some fun text examples that generated from my model:
+- Hello, I'm a language model, and I do have a great understanding of everything about AI (including its applications). Although I don't think it's a
+- Hello, I'm a language model, and here's all I want to put a bit more energy into figuring out what words in English could mean in English.
+- Hello, I'm a language model, and I can help you find language translations where you can even use "words" in dictionaries or translations. I'm
+- Hello, I'm a language model, I'm a linguist for Learning English. I'm trying to teach people language and English through a series of lectures in
