@@ -23,7 +23,9 @@ toc:
   - name: Overview
   - name: Key Contributions
   - name: Visualization
+  - name: Conclusion
   - name: Future Directions
+  - name: Learn More
 ---
 
 ## Overview
