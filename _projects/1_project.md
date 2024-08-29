@@ -31,7 +31,7 @@ GPU T4 doesn't support BF16. If we use float16 the loss will increase.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets\img\BUGtrainGPU.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        <img src="assets\img\BUGtrainGPU.png">
     </div>
 </div>
 
@@ -39,7 +39,7 @@ Using float32 is a pain in the neck when it slows down the training process very
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets\img\trainGPU.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        <img src="assets\img\trainGPU.png">
     </div>
 </div>
 
@@ -52,6 +52,6 @@ After applying TPU and BF16 and running for 18 hours I finally **surpassed GPT-2
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets\img\trainTPU.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        <img src="assets\img\trainTPU.png">
     </div>
 </div>
