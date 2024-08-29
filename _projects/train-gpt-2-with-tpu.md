@@ -2,9 +2,11 @@
 layout: distill
 title: Train GPT-2 with TPU
 description: Using TPU to speedup and recreate GPT-2 result
-tags: distill formatting 
+img: assets/img/trainTPU.jpg
+importance: 1
+category: ML
 disqus_comments: true
-date: 2024-08-29
+# date: 2024-08-29
 featured: true
 
 toc:
@@ -15,8 +17,10 @@ toc:
   - name: Result
 ---
 
-This project was inspired by [Andrej Karparthy's video](https://youtu.be/l8pRSuU81PU?si=6_loh9yI5Fj6ut1g). 
+This project was inspired by [Andrej Karparthy's video](https://youtu.be/l8pRSuU81PU?si=6_loh9yI5Fj6ut1g). Here I stick to the GPT-2 and GPT-3 paper to reproduce the model and techniques. I applied gradient accumulation, distributed data parallel (GPU and TPU), half-precision, flash attention, and nice numbers (the number that can be divided by 2 the most). I trained on FineWeb (EDU), the same datasets that GPT-2 has trained on. For evaluation, I used a different dataset and HellaSwag for comparison to the GPT-2 paper.
+
 But if you don't have powerful GPUs or have money for GPU rental. We still can achieve GPT-2 124M performance with TPU on Kaggle! But we have some problems to solve.
+
 If you want to dive deep into my code, please have a look at this [notebook](https://www.kaggle.com/code/dustnn/train-gpt-2-with-tpu).
 
 ## Challenges
