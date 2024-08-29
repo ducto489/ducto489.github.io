@@ -1,5 +1,5 @@
 ---
-layout: distill
+layout: post
 title: Train GPT-2 with TPU
 description: Using TPU to speedup and recreate GPT-2 result
 tags: distill formatting 
@@ -8,12 +8,18 @@ date: 2024-08-29
 featured: true
 
 toc:
-  - name: Challenges
-    subsections:
-      - name: Disk Memory
-      - name: Training Extremely Slow
-  - name: Result
+  beginning: true
+#   - name: Challenges
+#     subsections:
+#       - name: Disk Memory
+#       - name: Training Extremely Slow
+#   - name: Result
 ---
+
+```yml
+toc:
+  beginning: true
+```
 
 This project was inspired by [Andrej Karparthy's video](https://youtu.be/l8pRSuU81PU?si=6_loh9yI5Fj6ut1g). 
 But if you don't have powerful GPUs or have money for GPU rental. We still can achieve GPT-2 124M performance with TPU on Kaggle! But we have some problems to solve.
