@@ -2,7 +2,7 @@
 layout: distill
 title: Quantum Random Walk
 description: The behavior of quantum random walks (QRWs) using the Creutz ladder model
-img: assets/img/codethoigian.png
+img: assets/img/codethoigian-png.png
 importance: 1
 category: Physics
 disqus_comments: true
