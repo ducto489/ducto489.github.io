@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: <b>Physics Undergrad</b> @ <a href='https://en.hcmus.edu.vn/'>VNUHCM - HCMUS</a>  •  "be delusional"
 
