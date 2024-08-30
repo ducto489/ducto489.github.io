@@ -28,7 +28,7 @@
       "location": "Vietnam",
       "url": "https://en.hcmus.edu.vn/",
       "area": "Honor Program in Physics",
-      "studyType": "Undergraduate",
+      "studyType": "Bachelors of Science",
       "startDate": "2024",
       "endDate": "2028",
       "score": "",
@@ -48,12 +48,20 @@
   ],
   "projects": [
     {
-      "name": "Quantum Computing",
-      "summary": "Quantum computing is the use of quantum-mechanical phenomena such as superposition and entanglement to perform computation. Computers that perform quantum computations are known as quantum computers.",
-      "highlights": ["Quantum Teleportation", "Quantum Cryptography"],
-      "startDate": "2018-01-01",
-      "endDate": "2018-01-01",
-      "url": "https://example.com"
+      "name": "Train GPT-2 with TPU",
+      "summary": "Reproduced the GPT-2 124M based on GPT-2 and GPT-3 paper on Kaggle",
+      "highlights": ["TPU", "Optimization", "Pytorch"],
+      "startDate": "",
+      "endDate": "2024-08-14",
+      "url": "https://ducto489.github.io/projects/train-gpt-2-with-tpu/"
+    },
+    {
+      "name": "Confined Quantum Random Walk",
+      "summary": "Explored quantum random walks (QRWs) using the Creutz ladder model, a quantum lattice structure with localization properties.",
+      "highlights": ["Math", "Physics", "Python"],
+      "startDate": "",
+      "endDate": "2024-07-31",
+      "url": "https://ducto489.github.io/projects/qrw/"
     }
   ],
   "certificates": [
@@ -62,21 +70,27 @@
       "date": "2024-06",
       "issuer": "Stanford University",
       "url": "https://www.coursera.org/account/accomplishments/specialization/ZPUG7QFHSZLJ",
-      "icon": "fa-solid fa-location-dot"
+      "icon": "fa-solid fa-hashtag"
     }
   ],
   "skills": [
     {
-      "name": "Physics",
-      "level": "Master",
+      "name": "Programming",
+      "level": "",
       "icon": "fa-solid fa-hashtag",
       "keywords": [
-        "Quantum Mechanics",
-        "Quantum Computing",
-        "Quantum Information",
-        "Quantum Cryptography",
-        "Quantum Communication",
-        "Quantum Teleportation"
+        "C/C++",
+        "Python",
+        "SQL"
+      ]
+    },
+    {
+      "name": "Libraries",
+      "level": "",
+      "icon": "fa-solid fa-hashtag",
+      "keywords": [
+        " Pytorch (GPU, TPU)",
+        "Numpy"
       ]
     }
   ],
