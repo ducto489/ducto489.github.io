@@ -52,8 +52,6 @@ Using float32 causes pain in the neck when it slows down the training process ve
 
 **Solution:** TPU supports BF16 and it is even faster!
 
----
-
 ## Techniques Used
 - **Gradient Accumulation**: To simulate larger batch sizes without requiring extensive memory.
 - **Half-Precision (BF16)**: Leveraging TPU's support for BF16 to improve training speed and reduce memory usage.
@@ -61,8 +59,6 @@ Using float32 causes pain in the neck when it slows down the training process ve
 - **Flash Attention**: Optimized attention mechanism for faster computation.
 - **"Nice Numbers"**: Applied values divisible by 2 as much as possible to optimize memory usage.
 - And some other TPU optimization.
-
----
 
 ## Result
 After applying TPU, BF16, and some other TPU optimization and running for 18 hours I finally **surpassed GPT-2 124M model** with validation loss 3.2754 over 3.2924 and HellaSwag evaluation 0.2962 over 0.294463! We achieved 243.000 tokens/sec meaning that we sped up the training by 243.000 / 7.400 = **33 times** compared to GPU T4 x2!

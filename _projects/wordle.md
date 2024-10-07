@@ -24,20 +24,14 @@ toc:
 
 I recently done a project where I used reinforcement learning (RL) to solve Wordle, a popular word puzzle game. By leveraging the power of machine learning, I trained an RL agent to learn how to guess words based on feedback. But this project is not complete yet, there are spaces for improvement and my model can't run on the full dataset yet.
 
----
-
 ## Project Structure
 
 - **Source Environment**: [wordle-solver](https://github.com/andrewkho/wordle-solver). I customized their environment and used their hyperparameters for training.
 - **Vectorized Environment**: To make training more efficient, I used a vectorized environment with DummyVecEnv, allowing the agent to train across multiple Wordle instances simultaneously.
 - **First step**: In my setting, I choose the word 'crate' to optimize the information which the model can guess after fist step. It is indeed make the training sped up because the several first mean reward before I use this setting is negative but after using, it is positive mean reward
 
----
-
 ## Training
 Training was conducted using A2C. I trained the agent using the first 10 words from the official Wordle vocabulary first and using 10 action to represent the word the model can choose, gradually teaching the model to make better word guesses. After the mean reward is great, I transfer learning to train on first 100 words and 100 action. And after that I train on the full dataset which include 2315 words and 2315 words
-
----
 
 ## Challenges and My Propose Solutions
 ### 1. Challenges
