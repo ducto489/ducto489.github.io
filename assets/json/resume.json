@@ -35,65 +35,6 @@
       "courses": []
     }
   ],
-  "work": [
-    {
-      "name": "Vật Lý Chill",
-      "position": "Coder",
-      "url": "https://www.youtube.com/c/V%E1%BA%ADtL%C3%BDChill",
-      "startDate": "2022",
-      "endDate": "Present",
-      "summary": "Leveraged Python to define abstract concepts in Math and Physics and their real-world implications through animations and visualizations targeting high school students in Vietnam.",
-      "highlights": ["Python"]
-    }
-  ],
-  "projects": [
-    {
-      "name": "Train GPT-2 with TPU",
-      "summary": "Reproduced the GPT-2 124M based on GPT-2 and GPT-3 paper on Kaggle",
-      "highlights": ["TPU", "Optimization", "Pytorch"],
-      "startDate": "",
-      "endDate": "2024-08-14",
-      "url": "https://ducto489.github.io/projects/train-gpt-2-with-tpu/"
-    },
-    {
-      "name": "Confined Quantum Random Walk",
-      "summary": "Explored quantum random walks (QRWs) using the Creutz ladder model, a quantum lattice structure with localization properties.",
-      "highlights": ["Math", "Physics", "Python"],
-      "startDate": "",
-      "endDate": "2024-07-31",
-      "url": "https://ducto489.github.io/projects/qrw/"
-    }
-  ],
-  "certificates": [
-    {
-      "name": "Machine Learning Specialization",
-      "date": "2024-06",
-      "issuer": "Stanford University",
-      "url": "https://www.coursera.org/account/accomplishments/specialization/ZPUG7QFHSZLJ",
-      "icon": "fa-solid fa-hashtag"
-    }
-  ],
-  "skills": [
-    {
-      "name": "Programming",
-      "level": "",
-      "icon": "fa-solid fa-hashtag",
-      "keywords": [
-        "C/C++",
-        "Python",
-        "SQL"
-      ]
-    },
-    {
-      "name": "Libraries",
-      "level": "",
-      "icon": "fa-solid fa-hashtag",
-      "keywords": [
-        " Pytorch (GPU, TPU)",
-        "Numpy"
-      ]
-    }
-  ],
   "languages": [
     {
       "language": "Vietnamese",
