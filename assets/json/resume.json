@@ -34,17 +34,5 @@
       "score": "",
       "courses": []
     }
-  ],
-  "languages": [
-    {
-      "language": "Vietnamese",
-      "fluency": "Native speaker",
-      "icon": ""
-    },
-    {
-      "language": "English",
-      "fluency": "Fluent",
-      "icon": ""
-    }
   ]
 }
