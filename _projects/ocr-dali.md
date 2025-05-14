@@ -2,7 +2,7 @@
 layout: distill
 title: DALI in OCR
 description: Using DALI to speedup data preprocessing and augmentation in OCR
-img: assets/img/trainTPU.jpg
+img: assets/img/dali-ocr.jpeg
 importance: 1
 category: Machine Learning
 disqus_comments: true
@@ -15,9 +15,10 @@ toc:
   - name: 3. When and How to Integrate DALI for Faster OCR Training
   - name: 4. Practical Integration and Experimental Results
     subsections:
-      - name: Case 1: High-End GPU with Strong CPU (NVIDIA A6000)
-      - name: Case 2: Cloud GPU (NVIDIA L4)
-      - name: Case 3: Mid-Range GPU with Slow Storage (NVIDIA 3060 + HDD)
+      - name: Case 1 High-End GPU with Strong CPU (NVIDIA A6000)
+      - name: Case 2 Cloud GPU (NVIDIA L4)
+      - name: Case 3 Mid-Range GPU with Slow Storage (NVIDIA 3060 + HDD)
+  - name: 5. Analysis and Conclusion
 ---
 
 # Accelerating OCR Training with NVIDIA DALI: A Practical Guide and Case Study
@@ -72,7 +73,7 @@ We tested our DALI implementation across different hardware setups against a bas
 
 **(Note:** Dataset size and specifics impact absolute times, but relative speedups are indicative.)
 
-### Case 1: High-End GPU with Strong CPU (NVIDIA A6000)
+### Case 1 High-End GPU with Strong CPU (NVIDIA A6000)
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/ocr_training_time_a6000.png" class="img-fluid rounded z-depth-1" zoomable=true %}
@@ -80,7 +81,7 @@ We tested our DALI implementation across different hardware setups against a bas
 </div>
     *   *Observation:* High GPU utilization with the standard loader hid a data pipeline bottleneck. DALI running augmentations on the strong **CPU** provided the best speedup (~13%), demonstrating its superior efficiency (optimized kernels, parallelism) over standard Python processing even on capable hardware. DALI on CPU outperformed DALI on GPU here, suggesting CPU execution was more efficient for this specific workload, likely due to lower overhead.
 
-### Case 2: Cloud GPU (NVIDIA L4)
+### Case 2 Cloud GPU (NVIDIA L4)
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/ocr_training_time_l4.png" class="img-fluid rounded z-depth-1" zoomable=true %}
@@ -88,7 +89,7 @@ We tested our DALI implementation across different hardware setups against a bas
 </div>
     *   *Observation:* On this balanced system, offloading DALI augmentations to the GPU provided the best performance, overcoming the CPU bottleneck observed in the CPU-only DALI configuration.
 
-### Case 3: Mid-Range GPU with Slow Storage (NVIDIA 3060 + HDD)
+### Case 3 Mid-Range GPU with Slow Storage (NVIDIA 3060 + HDD)
     *   **DALI (Augmentations on CPU):** Extremely slow, GPU utilization frequently hit 0%. Disk I/O was maxed out.
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
