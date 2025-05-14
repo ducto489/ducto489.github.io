@@ -90,7 +90,7 @@ We tested our DALI implementation across different hardware setups against a bas
 *   *Observation:* On this balanced system, offloading DALI augmentations to the GPU provided the best performance, overcoming the CPU bottleneck observed in the CPU-only DALI configuration.
 
 ### Case 3 Mid-Range GPU with Slow Storage (NVIDIA 3060 + HDD)
-    *   **DALI (Augmentations on CPU):** Extremely slow, GPU utilization frequently hit 0%. Disk I/O was maxed out.
+*   **DALI (Augmentations on CPU):** Extremely slow, GPU utilization frequently hit 0%. Disk I/O was maxed out.
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/HDD-bottleneck.png" class="img-fluid rounded z-depth-1" zoomable=true %}
