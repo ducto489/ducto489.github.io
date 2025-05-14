@@ -79,7 +79,7 @@ We tested our DALI implementation across different hardware setups against a bas
         {% include figure.liquid loading="eager" path="assets/img/ocr_training_time_a6000.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
-    *   *Observation:* High GPU utilization with the standard loader hid a data pipeline bottleneck. DALI running augmentations on the strong **CPU** provided the best speedup (~13%), demonstrating its superior efficiency (optimized kernels, parallelism) over standard Python processing even on capable hardware. DALI on CPU outperformed DALI on GPU here, suggesting CPU execution was more efficient for this specific workload, likely due to lower overhead.
+*   *Observation:* High GPU utilization with the standard loader hid a data pipeline bottleneck. DALI running augmentations on the strong **CPU** provided the best speedup (~13%), demonstrating its superior efficiency (optimized kernels, parallelism) over standard Python processing even on capable hardware. DALI on CPU outperformed DALI on GPU here, suggesting CPU execution was more efficient for this specific workload, likely due to lower overhead.
 
 ### Case 2 Cloud GPU (NVIDIA L4)
 <div class="row mt-3">
@@ -87,7 +87,7 @@ We tested our DALI implementation across different hardware setups against a bas
         {% include figure.liquid loading="eager" path="assets/img/ocr_training_time_l4.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
-    *   *Observation:* On this balanced system, offloading DALI augmentations to the GPU provided the best performance, overcoming the CPU bottleneck observed in the CPU-only DALI configuration.
+*   *Observation:* On this balanced system, offloading DALI augmentations to the GPU provided the best performance, overcoming the CPU bottleneck observed in the CPU-only DALI configuration.
 
 ### Case 3 Mid-Range GPU with Slow Storage (NVIDIA 3060 + HDD)
     *   **DALI (Augmentations on CPU):** Extremely slow, GPU utilization frequently hit 0%. Disk I/O was maxed out.
@@ -96,8 +96,8 @@ We tested our DALI implementation across different hardware setups against a bas
         {% include figure.liquid loading="eager" path="assets/img/HDD-bottleneck.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
-    *   *Observation:* DALI optimizes *processing*, but cannot overcome fundamental I/O limitations from slow storage when reading many small files.
-    *   *Recommendation:* Combine DALI with optimized data formats like **WebDataset** using DALI's dedicated readers (`fn.readers.webdataset`) to address the data loading bottleneck first.
+*   *Observation:* DALI optimizes *processing*, but cannot overcome fundamental I/O limitations from slow storage when reading many small files.
+*   *Recommendation:* Combine DALI with optimized data formats like **WebDataset** using DALI's dedicated readers (`fn.readers.webdataset`) to address the data loading bottleneck first.
 
 ## 5. Analysis and Conclusion
 
