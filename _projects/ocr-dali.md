@@ -24,6 +24,8 @@ toc:
 # Accelerating OCR Training with NVIDIA DALI: A Practical Guide and Case Study
 ## 1. Introduction
 
+For a detailed exploration of the code, datasets, and methods, you can view this [Github Repo](https://github.com/ducto489/lib_ocr).
+
 Training Deep Learning models for Optical Character Recognition (OCR) often involves complex data loading and augmentation pipelines. These preprocessing steps, if not optimized, can become a significant bottleneck, leaving expensive GPU resources underutilized and prolonging training times. This document outlines our approach to leveraging the **NVIDIA Data Loading Library (DALI)** to accelerate the training process for our **ResNet + BiLSTM + Attention** OCR model built with **PyTorch Lightning**. We demonstrate substantial speedups compared to standard data loading methods and showcase the importance of hardware-aware pipeline configuration.
 
 ## 2. Why NVIDIA DALI?

@@ -17,10 +17,11 @@ toc:
       - name: 2. Slow Training on GPU T4 x2
   - name: Techniques Used
   - name: Result
-  - name: Learn More
 ---
 
 ## Overview
+
+For a detailed exploration of the code, datasets, and methods, you can view this [Kaggle Notebook](https://www.kaggle.com/code/dustnn/train-gpt-2-with-tpu).
 
 This project was inspired by [Andrej Karparthy's video](https://youtu.be/l8pRSuU81PU?si=6_loh9yI5Fj6ut1g). Here I stick to the GPT-2 and GPT-3 paper to reproduce the model and techniques. I applied gradient accumulation, distributed data parallel (GPU and TPU), half-precision, flash attention, and nice numbers (the number that can be divided by 2 the most). I trained on FineWeb (EDU), which is the same dataset that GPT -2 has trained on. For evaluation, I used a different dataset and a HellaSwag for comparison to the GPT-2 paper.
 
@@ -74,10 +75,4 @@ Here are some fun text examples that generated from my model:
 - Hello, I'm a language model, and here's all I want to put a bit more energy into figuring out what words in English could mean in English.
 - Hello, I'm a language model, and I can help you find language translations where you can even use "words" in dictionaries or translations. I'm
 - Hello, I'm a language model, I'm a linguist for Learning English. I'm trying to teach people language and English through a series of lectures in
-
-## Learn More
-For a detailed exploration of the code, datasets, and methods, you can view this [Kaggle Notebook](https://www.kaggle.com/code/dustnn/train-gpt-2-with-tpu).
-
 ---
-
-*This project demonstrates the feasibility of training large language models like GPT-2 on Kaggle's TPU, overcoming hardware limitations and achieving significant performance improvements.*
