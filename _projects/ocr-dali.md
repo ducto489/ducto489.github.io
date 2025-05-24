@@ -27,12 +27,14 @@ toc:
 ---
 
 For a detailed exploration of the code, and methods, you can view this [Github Repo](https://github.com/ducto489/lib_ocr).
+
 You can see how we perform inference with our pretrained model in [notebook](https://github.com/ducto489/lib_ocr/blob/training/inference/inference.ipynb).
 
 # Accelerating OCR Training with NVIDIA DALI: A Practical Guide and Case Study
 ## 1. Introduction
 
 Training Deep Learning models for Optical Character Recognition (OCR) often involves complex data loading and augmentation pipelines. These preprocessing steps, if not optimized, can become a significant bottleneck, leaving expensive GPU resources underutilized and prolonging training times. 
+
 This document outlines our approach to leveraging the **NVIDIA Data Loading Library (DALI)** to accelerate the training process for our **ResNet + BiLSTM + Attention** OCR model built with **PyTorch Lightning**. We demonstrate substantial speedups compared to standard data loading methods and showcase the importance of hardware-aware pipeline configuration.
 
 ## 2. Data Processing and Details
@@ -128,7 +130,11 @@ If the above checks suggest DALI is suitable, here's how it achieves acceleratio
 
 ## 6. Practical Integration and Experimental Results
 
-Integrating DALI into our PyTorch Lightning workflow involves a few key components, demonstrated in our codebase. We define DALI pipelines using the `@pipeline_def` decorator, specifying data loading, augmentation, and processing steps using `nvidia.dali.fn` operators. For data loading from our custom format (images in a folder, labels in CSV), we utilize `fn.external_source` coupled with a Python callable (`ExternalInputCallable`) that reads image bytes and encodes labels. To feed data into the PyTorch Lightning training loop, we wrap the DALI pipeline using `DALIGenericIterator` (specifically, our `LightningWrapper` subclass for convenience) which handles batch collation and transfer to the GPU. This setup replaces the standard PyTorch `DataLoader`. For those interested in the specific implementation details, please refer to the `DALI_OCRDataModule` and associated classes within our project's source code.
+Integrating DALI into our PyTorch Lightning workflow involves a few key components, demonstrated in our codebase. We define DALI pipelines using the `@pipeline_def` decorator, specifying data loading, augmentation, and processing steps using `nvidia.dali.fn` operators. 
+
+For data loading from our custom format (images in a folder, labels in CSV), we utilize `fn.external_source` coupled with a Python callable (`ExternalInputCallable`) that reads image bytes and encodes labels.
+
+To feed data into the PyTorch Lightning training loop, we wrap the DALI pipeline using `DALIGenericIterator` which handles batch collation and transfer to the GPU. This setup replaces the standard PyTorch `DataLoader`. For those interested in the specific implementation details, please refer to the `DALI_OCRDataModule` and associated classes within our project's source code.
 
 We tested our DALI implementation across different hardware setups against a baseline PyTorch DataLoader (`No DALI`).
 
