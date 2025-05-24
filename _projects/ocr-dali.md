@@ -26,9 +26,7 @@ toc:
   - name: 7. Analysis and Conclusion
 ---
 
-For a detailed exploration of the code, and methods, you can view this [Github Repo](https://github.com/ducto489/lib_ocr).
-
-You can see how we perform inference with our pretrained model in [notebook](https://github.com/ducto489/lib_ocr/blob/training/inference/inference.ipynb).
+For a detailed exploration of the code, and methods, you can view this [Github Repo](https://github.com/ducto489/lib_ocr). You can see how we perform inference with our pretrained model in [notebook](https://github.com/ducto489/lib_ocr/blob/training/inference/inference.ipynb).
 
 # Accelerating OCR Training with NVIDIA DALI: A Practical Guide and Case Study
 ## 1. Introduction
