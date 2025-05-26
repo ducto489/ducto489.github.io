@@ -37,7 +37,7 @@ This document outlines our approach to leveraging the **NVIDIA Data Loading Libr
 
 ## 2. Data Processing and Details
 
-### 2.1. Character Normalization
+### Character Normalization
 
 To create a uniform character set for the OCR model, the following text normalizations are applied to the labels:
 
@@ -58,7 +58,7 @@ To create a uniform character set for the OCR model, the following text normaliz
 
 This normalization simplifies the vocabulary the model needs to learn.
 
-### 2.2. Datasets Used
+### Datasets Used
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
