@@ -66,6 +66,8 @@ This normalization simplifies the vocabulary the model needs to learn.
     </div>
 </div>
 
+_**Left (PyTorch DataLoader):** The GPU frequently idles or is underutilized, indicating data bottlenecks. **Right (NVIDIA DALI):** The GPU maintains consistently high utilization. DALI keeps the L4 GPU working hard, reducing wasted cycles and speeding up training._
+
 The training leverages a combined dataset from the following sources:
 
 | Dataset                                                                                  | Train Samples | Validation Samples | Notes                       |
