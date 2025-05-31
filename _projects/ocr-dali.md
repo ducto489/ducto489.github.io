@@ -1,7 +1,7 @@
 ---
 layout: distill
-title: DALI in OCR
-description: Using DALI to speedup data preprocessing and augmentation in OCR
+title: VietConizer, Vietnamese OCR with NVIDIA DALI
+description: Using DALI to speedup data processing in OCR
 img: assets/img/dali-ocr.jpeg
 importance: 1
 category: Machine Learning
