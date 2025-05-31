@@ -66,8 +66,6 @@ This normalization simplifies the vocabulary the model needs to learn.
     </div>
 </div>
 
-_**Left (PyTorch DataLoader):** The GPU frequently idles or is underutilized, indicating data bottlenecks. **Right (NVIDIA DALI):** The GPU maintains consistently high utilization. DALI keeps the L4 GPU working hard, reducing wasted cycles and speeding up training._
-
 The training leverages a combined dataset from the following sources:
 
 | Dataset                                                                                  | Train Samples | Validation Samples | Notes                       |
@@ -96,6 +94,8 @@ The model we release is the one obtained after this fine-tuning process on the V
         {% include figure.liquid loading="eager" path="assets/img/Pytorch-Dataloader.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
+
+_**Left (PyTorch DataLoader):** The GPU frequently idles or is underutilized, indicating data bottlenecks. **Right (NVIDIA DALI):** The GPU maintains consistently high utilization. DALI keeps the L4 GPU working hard, reducing wasted cycles and speeding up training._
 
 DALI is designed specifically to address data pipeline bottlenecks in deep learning workloads. Its key advantages include:
 
