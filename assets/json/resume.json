@@ -39,32 +39,21 @@
       "startDate": "2022",
       "endDate": "Present",
       "summary": "Use Python animations and visualizations to explain mathematical and physics concepts for Vietnamese high-school students.",
-      "highlights": [
-        "Python",
-        "Scientific visualization"
-      ]
+      "highlights": ["Python", "Scientific visualization"]
     }
   ],
   "projects": [
     {
       "name": "Train GPT-2 with TPU",
       "summary": "Implemented and trained a GPT-2-style 124M language model on Kaggle TPU, focusing on streaming data and accelerator-aware optimization.",
-      "highlights": [
-        "TPU",
-        "PyTorch",
-        "Distributed training"
-      ],
+      "highlights": ["TPU", "PyTorch", "Distributed training"],
       "endDate": "2024-08-14",
       "url": "https://ducto489.github.io/projects/train-gpt-2-with-tpu/"
     },
     {
       "name": "Confined Quantum Random Walk",
       "summary": "Studied confinement in quantum random walks on the Creutz ladder using analytical arguments and numerical simulations.",
-      "highlights": [
-        "Quantum physics",
-        "Python",
-        "Numerical simulation"
-      ],
+      "highlights": ["Quantum physics", "Python", "Numerical simulation"],
       "endDate": "2024-07-31",
       "url": "https://ducto489.github.io/projects/qrw/"
     }
@@ -80,19 +69,11 @@
   "skills": [
     {
       "name": "Programming",
-      "keywords": [
-        "C/C++",
-        "Python",
-        "SQL"
-      ]
+      "keywords": ["C/C++", "Python", "SQL"]
     },
     {
       "name": "Libraries and tooling",
-      "keywords": [
-        "PyTorch",
-        "NumPy",
-        "GPU/TPU training"
-      ]
+      "keywords": ["PyTorch", "NumPy", "GPU/TPU training"]
     }
   ],
   "languages": [

@@ -29,9 +29,10 @@ toc:
 For a detailed exploration of the code, and methods, you can view this [GitHub repository](https://github.com/ducto489/lib_ocr). You can see how we perform inference with our pretrained model in [notebook](https://github.com/ducto489/lib_ocr/blob/training/inference/inference.ipynb).
 
 # Accelerating OCR Training with NVIDIA DALI: A Practical Guide and Case Study
+
 ## 1. Introduction
 
-Training Deep Learning models for Optical Character Recognition (OCR) often involves complex data loading and augmentation pipelines. These preprocessing steps, if not optimized, can become a significant bottleneck, leaving expensive GPU resources underutilized and prolonging training times. 
+Training Deep Learning models for Optical Character Recognition (OCR) often involves complex data loading and augmentation pipelines. These preprocessing steps, if not optimized, can become a significant bottleneck, leaving expensive GPU resources underutilized and prolonging training times.
 
 This document outlines our approach to leveraging the **NVIDIA Data Loading Library (DALI)** to accelerate the training process for our **ResNet + BiLSTM + Attention** OCR model built with **PyTorch Lightning**. We demonstrate substantial speed-ups compared to standard data loading methods and showcase the importance of hardware-aware pipeline configuration.
 
@@ -41,20 +42,20 @@ This document outlines our approach to leveraging the **NVIDIA Data Loading Libr
 
 To create a uniform character set for the OCR model, the following text normalizations are applied to the labels:
 
-| Original Character(s) | Description        | Normalized Character |
-| :-------------------- | :----------------- | :------------------- |
-| `“`, `”`             | Smart Quotes       | `"`                  |
-| `’`                   | Typographical Apostrophe | `'`                  |
-| `–`, `—`, `−`         | Various Dashes     | `-`                  |
-| `…`                   | Ellipsis           | `...`                |
+| Original Character(s) | Description               | Normalized Character |
+| :-------------------- | :------------------------ | :------------------- |
+| `“`, `”`              | Smart Quotes              | `"`                  |
+| `’`                   | Typographical Apostrophe  | `'`                  |
+| `–`, `—`, `−`         | Various Dashes            | `-`                  |
+| `…`                   | Ellipsis                  | `...`                |
 | `Ð`                   | Icelandic Eth (Uppercase) | `Đ`                  |
 | `ð`                   | Icelandic Eth (Lowercase) | `đ`                  |
-| `Ö`, `Ō`             | O with accents     | `O`                  |
-| `Ü`, `Ū`             | U with accents     | `U`                  |
-| `Ā`                   | A with macron      | `A`                  |
-| `ö`, `ō`             | o with accents     | `o`                  |
-| `ü`, `ū`             | u with accents     | `u`                  |
-| `ā`                   | a with macron      | `a`                  |
+| `Ö`, `Ō`              | O with accents            | `O`                  |
+| `Ü`, `Ū`              | U with accents            | `U`                  |
+| `Ā`                   | A with macron             | `A`                  |
+| `ö`, `ō`              | o with accents            | `o`                  |
+| `ü`, `ū`              | u with accents            | `u`                  |
+| `ā`                   | a with macron             | `a`                  |
 
 This normalization simplifies the vocabulary the model needs to learn.
 
@@ -68,13 +69,13 @@ This normalization simplifies the vocabulary the model needs to learn.
 
 The training leverages a combined dataset from the following sources:
 
-| Dataset                                                                                  | Train Samples | Validation Samples | Notes                       |
-| :--------------------------------------------------------------------------------------- | --------------: | -------------------: | :-------------------------- |
-| [vietocr](https://github.com/pbcquoc/vietocr)                                           | 441,025        | 110,257             | Random word images removed |
-| [Paper (Deep Text Rec. Benchmark)](https://github.com/clovaai/deep-text-recognition-benchmark) | 3,287,346      | 6,992               |                             |
-| [Synth90k](https://www.robots.ox.ac.uk/~vgg/data/text/)                                  | 7,224,612      | 802,731             |                             |
-| [Cinnamon AI (Handwritten)](https://www.kaggle.com/datasets/hariwh0/cinnamon-ai-handwritten-addresses) | 1,470          | 368                 |                             |
-| **Combined Total**                                                                       | **~11.0 M**    | **~0.9 M**          |                             |
+| Dataset                                                                                                | Train Samples | Validation Samples | Notes                      |
+| :----------------------------------------------------------------------------------------------------- | ------------: | -----------------: | :------------------------- |
+| [vietocr](https://github.com/pbcquoc/vietocr)                                                          |       441,025 |            110,257 | Random word images removed |
+| [Paper (Deep Text Rec. Benchmark)](https://github.com/clovaai/deep-text-recognition-benchmark)         |     3,287,346 |              6,992 |                            |
+| [Synth90k](https://www.robots.ox.ac.uk/~vgg/data/text/)                                                |     7,224,612 |            802,731 |                            |
+| [Cinnamon AI (Handwritten)](https://www.kaggle.com/datasets/hariwh0/cinnamon-ai-handwritten-addresses) |         1,470 |                368 |                            |
+| **Combined Total**                                                                                     |   **~11.0 M** |         **~0.9 M** |                            |
 
 **Vietnamese Data:** Please note that Vietnamese samples constitute only **1.76%** (209,120 images) of this combined dataset, from **VietOCR** (207,282) and **Cinnamon AI** (1,838). This reflects the limited availability of public Vietnamese OCR data.
 
@@ -99,10 +100,10 @@ _**Left (PyTorch DataLoader):** The GPU frequently idles or is underutilized, in
 
 DALI is designed specifically to address data pipeline bottlenecks in deep learning workloads. Its key advantages include:
 
-*   **Pipeline Parallelism:** DALI overlaps data loading, preprocessing, and GPU computation, minimizing idle time for both CPU and GPU.
-*   **Optimized Kernels:** It provides highly optimized CPU and GPU implementations (using C++/CUDA) for common data manipulation tasks (decoding, resizing, color augmentation, etc.), executing much faster than typical Python libraries.
-*   **Framework Integration:** Seamlessly integrates with popular frameworks like PyTorch, TensorFlow.
-*   **Hardware Flexibility:** Allows fine-grained control over whether operations run on the CPU or GPU, enabling optimization for diverse hardware configurations.
+- **Pipeline Parallelism:** DALI overlaps data loading, preprocessing, and GPU computation, minimizing idle time for both CPU and GPU.
+- **Optimized Kernels:** It provides highly optimized CPU and GPU implementations (using C++/CUDA) for common data manipulation tasks (decoding, resizing, color augmentation, etc.), executing much faster than typical Python libraries.
+- **Framework Integration:** Seamlessly integrates with popular frameworks like PyTorch, TensorFlow.
+- **Hardware Flexibility:** Allows fine-grained control over whether operations run on the CPU or GPU, enabling optimization for diverse hardware configurations.
 
 ## 5. When and How to Integrate DALI for Faster OCR Training
 
@@ -114,23 +115,23 @@ Before integrating DALI, it's crucial to determine if it's the right tool for yo
 Following this guidance:
 
 1.  **Verify Operator Coverage:** Check the [official DALI documentation for supported operators](https://docs.nvidia.com/deeplearning/dali/user-guide/docs/supported_ops.html). Ensure DALI provides the necessary functions for your OCR preprocessing pipeline (e.g., image decoding, resizing, padding, rotation, color adjustments, noise addition). Our pipeline utilizes operators like `fn.decoders.image`, `fn.resize`, `fn.rotate`, `fn.color_twist`, `fn.warp_affine`, and `fn.noise.gaussian`, all readily available in DALI.
-2.  **Identify the Bottleneck:** Perform the suggested test. Modify your existing training loop (without DALI) to load and preprocess *one single batch* of data, then repeatedly feed this *same batch* to the model for several training steps. Compare the training speed (e.g., iterations/second or time per step) in this fixed-data scenario to your normal training speed. If the fixed-data training is significantly faster, it strongly indicates that your data loading and preprocessing pipeline is limiting overall performance, and DALI is likely to provide a speedup.
+2.  **Identify the Bottleneck:** Perform the suggested test. Modify your existing training loop (without DALI) to load and preprocess _one single batch_ of data, then repeatedly feed this _same batch_ to the model for several training steps. Compare the training speed (e.g., iterations/second or time per step) in this fixed-data scenario to your normal training speed. If the fixed-data training is significantly faster, it strongly indicates that your data loading and preprocessing pipeline is limiting overall performance, and DALI is likely to provide a speedup.
 
 **How DALI Delivers Performance Gains:**
 
 If the above checks suggest DALI is suitable, here's how it achieves acceleration:
 
-*   **Executing Operations Efficiently:** DALI replaces standard Python-based processing (like using PIL or OpenCV within a PyTorch `Dataset`) with highly optimized C++ and CUDA kernels. This drastically reduces the overhead associated with Python execution for common data manipulation tasks.
-*   **Pipeline Parallelism:** DALI constructs a computational graph for your data pipeline. It can then execute different stages of this graph (e.g., reading data, CPU-based augmentation, GPU-based augmentation, transferring data to the GPU) in parallel and asynchronously with the main model training loop running on the GPU. This minimizes idle time where the GPU might be waiting for the next batch.
-*   **Hardware-Adaptive Execution:** DALI allows you to specify whether individual operations should run on the CPU (`device='cpu'`) or the GPU (`device='gpu'`). This is critical for optimization. As our Case Studies show:
-    *   On systems with very strong CPUs (like the A6000), performing augmentations on the CPU (`device='cpu'`) might be faster, preventing contention on the main training GPU.
-    *   On systems where the CPU is less powerful relative to the GPU (like the L4), offloading augmentations to the GPU (`device='gpu'`) frees up the CPU and leads to better overall throughput.
-    This flexibility allows tuning the pipeline for optimal performance on *your specific hardware*.
-*   **Optimized Data Reading:** While our example uses `fn.external_source` for flexibility with individual files, DALI also offers highly optimized readers for various packed dataset formats (TFRecord, RecordIO, Caffe LMDB, **WebDataset**). If your bottleneck test reveals slow performance even with minimal augmentations, or if dealing with slow storage (like the HDD in Case 3), switching to one of these formats and using the corresponding DALI reader (`fn.readers.*`) can dramatically improve data ingestion speed *before* the processing steps.
+- **Executing Operations Efficiently:** DALI replaces standard Python-based processing (like using PIL or OpenCV within a PyTorch `Dataset`) with highly optimized C++ and CUDA kernels. This drastically reduces the overhead associated with Python execution for common data manipulation tasks.
+- **Pipeline Parallelism:** DALI constructs a computational graph for your data pipeline. It can then execute different stages of this graph (e.g., reading data, CPU-based augmentation, GPU-based augmentation, transferring data to the GPU) in parallel and asynchronously with the main model training loop running on the GPU. This minimizes idle time where the GPU might be waiting for the next batch.
+- **Hardware-Adaptive Execution:** DALI allows you to specify whether individual operations should run on the CPU (`device='cpu'`) or the GPU (`device='gpu'`). This is critical for optimization. As our Case Studies show:
+  - On systems with very strong CPUs (like the A6000), performing augmentations on the CPU (`device='cpu'`) might be faster, preventing contention on the main training GPU.
+  - On systems where the CPU is less powerful relative to the GPU (like the L4), offloading augmentations to the GPU (`device='gpu'`) frees up the CPU and leads to better overall throughput.
+    This flexibility allows tuning the pipeline for optimal performance on _your specific hardware_.
+- **Optimized Data Reading:** While our example uses `fn.external_source` for flexibility with individual files, DALI also offers highly optimized readers for various packed dataset formats (TFRecord, RecordIO, Caffe LMDB, **WebDataset**). If your bottleneck test reveals slow performance even with minimal augmentations, or if dealing with slow storage (like the HDD in Case 3), switching to one of these formats and using the corresponding DALI reader (`fn.readers.*`) can dramatically improve data ingestion speed _before_ the processing steps.
 
 ## 6. Practical Integration and Experimental Results
 
-Integrating DALI into our PyTorch Lightning workflow involves a few key components, demonstrated in our codebase. We define DALI pipelines using the `@pipeline_def` decorator, specifying data loading, augmentation, and processing steps using `nvidia.dali.fn` operators. 
+Integrating DALI into our PyTorch Lightning workflow involves a few key components, demonstrated in our codebase. We define DALI pipelines using the `@pipeline_def` decorator, specifying data loading, augmentation, and processing steps using `nvidia.dali.fn` operators.
 
 For data loading from our custom format (images in a folder, labels in CSV), we utilize `fn.external_source` coupled with a Python callable (`ExternalInputCallable`) that reads image bytes and encodes labels.
 
@@ -141,6 +142,7 @@ We tested our DALI implementation across different hardware setups against a bas
 **(Note:** Dataset size and specifics impact absolute times, but relative speed-ups are indicative.)
 
 ### Case 1 High-End GPU with Strong CPU (NVIDIA A6000)
+
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/ocr_training_time_a6000.png" class="img-fluid rounded z-depth-1" zoomable=true %}
@@ -149,6 +151,7 @@ We tested our DALI implementation across different hardware setups against a bas
 *   *Observation:* High GPU utilization with the standard loader hid a data pipeline bottleneck. DALI running augmentations on the strong **CPU** provided the best speedup (~13%), demonstrating its superior efficiency (optimized kernels, parallelism) over standard Python processing even on capable hardware. DALI on CPU outperformed DALI on GPU here, suggesting CPU execution was more efficient for this specific workload, likely due to lower overhead.
 
 ### Case 2 Cloud GPU (NVIDIA L4)
+
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/ocr_training_time_l4.png" class="img-fluid rounded z-depth-1" zoomable=true %}
@@ -157,14 +160,15 @@ We tested our DALI implementation across different hardware setups against a bas
 *   *Observation:* On this balanced system, offloading DALI augmentations to the GPU provided the best performance, overcoming the CPU bottleneck observed in the CPU-only DALI configuration.
 
 ### Case 3 Mid-Range GPU with Slow Storage (NVIDIA 3060 + HDD)
-*   **DALI (Augmentations on CPU):** Extremely slow, GPU utilization frequently hit 0%. Disk I/O was maxed out.
+
+- **DALI (Augmentations on CPU):** Extremely slow, GPU utilization frequently hit 0%. Disk I/O was maxed out.
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/HDD-bottleneck.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
-*   *Observation:* DALI optimizes *processing*, but cannot overcome fundamental I/O limitations from slow storage when reading many small files.
-*   *Recommendation:* Combine DALI with optimized data formats like **WebDataset** using DALI's dedicated readers (`fn.readers.webdataset`) to address the data loading bottleneck first.
+- _Observation:_ DALI optimizes _processing_, but cannot overcome fundamental I/O limitations from slow storage when reading many small files.
+- _Recommendation:_ Combine DALI with optimized data formats like **WebDataset** using DALI's dedicated readers (`fn.readers.webdataset`) to address the data loading bottleneck first.
 
 ## 7. Analysis and Conclusion
 
@@ -172,6 +176,6 @@ Our experiments clearly demonstrate that:
 
 1.  **DALI significantly reduces OCR training time** when the data pipeline is a bottleneck (up to ~25% speedup observed on L4).
 2.  The **optimal placement of DALI operations (CPU vs. GPU) is hardware-dependent.** Tuning the `device` parameter for operators is crucial for maximizing performance.
-3.  **I/O is critical.** On systems with slow storage, optimizing the *dataset format and reading method* (e.g., using WebDataset with DALI's readers) is essential *before* DALI's processing speed-ups can be fully realized.
+3.  **I/O is critical.** On systems with slow storage, optimizing the _dataset format and reading method_ (e.g., using WebDataset with DALI's readers) is essential _before_ DALI's processing speed-ups can be fully realized.
 
 By correctly identifying bottlenecks and leveraging DALI's optimized kernels, parallelism, and hardware-adaptive execution, we can significantly accelerate OCR model training, enabling faster experimentation and development.
