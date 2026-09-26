@@ -14,12 +14,13 @@ The site is built with Jekyll and is based on the [al-folio](https://github.com/
 
 ## Local development
 
-The CI configuration uses Ruby 3.2.2 and Node.js 24.
+The CI configuration uses Ruby 3.2.2, Node.js 24, Python 3.12, and ImageMagick.
 
 ```bash
 bundle install
 npm ci
 python -m pip install -r requirements.txt
+# Ensure ImageMagick's `convert` command is installed and on PATH.
 bundle exec jekyll serve
 ```
 
