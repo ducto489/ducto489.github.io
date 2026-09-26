@@ -80,7 +80,7 @@ jobs:
           fail: true
           args: >-
             --offline
-            --remap '_site(/?.*)/assets/(.*) _site/assets/$2'
+            --root-dir "$GITHUB_WORKSPACE/_site"
             --verbose
             --no-progress
             '_site/**/*.html'
