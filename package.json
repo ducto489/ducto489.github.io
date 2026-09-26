@@ -1,6 +1,13 @@
 {
+  "scripts": {
+    "format": "prettier _config.yml _pages _projects .github/workflows assets/json --write",
+    "format:check": "prettier _config.yml _pages _projects .github/workflows assets/json --check"
+  },
   "devDependencies": {
     "@shopify/prettier-plugin-liquid": "1.4.0",
     "prettier": "3.1.1"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

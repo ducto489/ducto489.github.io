@@ -1,11 +1,11 @@
 ---
 layout: distill
 title: Train GPT-2 with TPU
-description: Using TPU to speedup and recreate GPT-2 result
+description: Training a GPT-2-style 124M language model efficiently on Kaggle TPU
 img: assets/img/trainTPU.jpg
 importance: 1
 category: Machine Learning
-disqus_comments: true
+disqus_comments: false
 date: 2024-08-29
 featured: true
 
@@ -13,29 +13,32 @@ toc:
   - name: Overview
   - name: Key Challenges and Solutions
     subsections:
-      - name: 1. Disk Memory Limitation
-      - name: 2. Slow Training on GPU T4 x2
+      - name: 1. Disk Space
+      - name: 2. Slow Training on T4 GPUs
   - name: Techniques Used
-  - name: Result
+  - name: Results
+  - name: Limitations
 ---
 
 ## Overview
 
-For a detailed exploration of the code, datasets, and methods, you can view this [Kaggle Notebook](https://www.kaggle.com/code/dustnn/train-gpt-2-with-tpu).
+The code and experiment are available in this [Kaggle notebook](https://www.kaggle.com/code/dustnn/train-gpt-2-with-tpu).
 
-This project was inspired by [Andrej Karparthy's video](https://youtu.be/l8pRSuU81PU?si=6_loh9yI5Fj6ut1g). Here I stick to the GPT-2 and GPT-3 paper to reproduce the model and techniques. I applied gradient accumulation, distributed data parallel (GPU and TPU), half-precision, flash attention, and nice numbers (the number that can be divided by 2 the most). I trained on FineWeb (EDU), which is the same dataset that GPT -2 has trained on. For evaluation, I used a different dataset and a HellaSwag for comparison to the GPT-2 paper.
+This project implements a GPT-2-style 124M parameter language model while following architecture and training ideas from the GPT-2 and GPT-3 literature. I used FineWeb-Edu as a modern training corpus. The original GPT-2 model was trained on WebText, so this experiment should be understood as a reproduction of the model scale and training approach rather than an exact reproduction of OpenAI's original data pipeline.
 
-But if you don't have powerful GPUs or have money for GPU rental. We still can achieve GPT-2 124M performance with TPU on Kaggle! But we have some problems to solve.
+The main goal was practical: determine whether a free Kaggle TPU could make a small GPT-style pretraining run feasible when the available T4 GPUs were too slow.
 
 ## Key Challenges and Solutions
-### 1. Disk Memory Limitation
-In Kaggle we only have 40GB of disk memory. If we use the saving and loading data technique in Andrej Karpathy's videos,  we end up running out of disk space before the training stuff begins.
 
-**Solution:** Implemented streaming techniques from the datasets library, allowing for efficient data handling during training and evaluation.
+### 1. Disk Space
 
-### 2. Slow Training on GPU T4 x2
+Kaggle provides limited local disk space. Pre-tokenizing and storing a large corpus locally can exhaust that space before training starts.
 
-GPU T4 doesn't support BF16. If we use float16 the loss will increase. 
+**Solution:** stream examples from the dataset pipeline instead of materializing the complete tokenized corpus on disk.
+
+### 2. Slow Training on T4 GPUs
+
+The available T4 GPUs do not provide the same BF16 path used by newer accelerators. In my setup, FP32 training reached roughly **7,400 tokens/s**, making the full run impractical.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -43,7 +46,7 @@ GPU T4 doesn't support BF16. If we use float16 the loss will increase.
     </div>
 </div>
 
-Using float32 causes pain in the neck when it slows down the training process very much. We achieved 7.400 tokens/sec. For comparison, Andrej Karparthy achieved 1.242.000 tokens/sec. After 12 hours of training, we reach the 295/19073 step. Not even close! 
+After 12 hours, the GPU run had reached only 295 of 19,073 planned steps.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -51,18 +54,22 @@ Using float32 causes pain in the neck when it slows down the training process ve
     </div>
 </div>
 
-**Solution:** TPU supports BF16 and it is even faster!
+**Solution:** move the run to TPU, where BF16 and multiple TPU cores provided much higher throughput.
 
 ## Techniques Used
-- **Gradient Accumulation**: To simulate larger batch sizes without requiring extensive memory.
-- **Half-Precision (BF16)**: Leveraging TPU's support for BF16 to improve training speed and reduce memory usage.
-- **Distributed Data Parallel**: To accelerate training by distributing the workload across multiple TPU cores.
-- **Flash Attention**: Optimized attention mechanism for faster computation.
-- **"Nice Numbers"**: Applied values divisible by 2 as much as possible to optimize memory usage.
-- And some other TPU optimization.
 
-## Result
-After applying TPU, BF16, and some other TPU optimization and running for 18 hours I finally **surpassed GPT-2 124M model** with validation loss 3.2754 over 3.2924 and HellaSwag evaluation 0.2962 over 0.294463! We achieved 243.000 tokens/sec meaning that we sped up the training by 243.000 / 7.400 = **33 times** compared to GPU T4 x2!
+- **Gradient accumulation** to reach a larger effective batch size.
+- **BF16 mixed precision** on TPU.
+- **Distributed training** across TPU cores.
+- **Efficient attention implementations** where supported by the runtime.
+- **Streaming data loading** to reduce local storage pressure.
+- **Hardware-friendly tensor and batch dimensions**, favoring values that map efficiently to accelerator kernels.
+
+## Results
+
+The TPU run reached roughly **243,000 tokens/s**, about **33×** the throughput of the FP32 T4 setup measured in this experiment.
+
+The final checkpoint reached a validation loss of **3.2754** on my validation setup and a HellaSwag accuracy of **0.2962**. I compared the latter with a GPT-2 124M reference value of **0.294463** used in the experiment.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -70,9 +77,11 @@ After applying TPU, BF16, and some other TPU optimization and running for 18 hou
     </div>
 </div>
 
-Here are some fun text examples that generated from my model:
-- Hello, I'm a language model, and I do have a great understanding of everything about AI (including its applications). Although I don't think it's a
-- Hello, I'm a language model, and here's all I want to put a bit more energy into figuring out what words in English could mean in English.
-- Hello, I'm a language model, and I can help you find language translations where you can even use "words" in dictionaries or translations. I'm
-- Hello, I'm a language model, I'm a linguist for Learning English. I'm trying to teach people language and English through a series of lectures in
----
+These numbers show that the TPU setup made the experiment computationally practical. They should not be interpreted as a strict claim that this checkpoint is universally better than the original GPT-2 124M model, because the training corpus, validation data, and evaluation setup are not identical to the original GPT-2 experiment.
+
+## Limitations
+
+- The training corpus differs from GPT-2's original WebText corpus.
+- Validation loss is only directly comparable when tokenization and evaluation data are matched.
+- The throughput comparison is specific to the Kaggle hardware and software configuration used in this project.
+- A stronger reproduction would report multiple downstream benchmarks and fully document the tokenizer, data mixture, optimizer schedule, and random seeds.

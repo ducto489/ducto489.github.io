@@ -1,3 +1,9 @@
-# Ignore artifacts:
-build
-coverage
+# Generated output
+_site/
+.jekyll-cache/
+
+# Vendored/minified assets
+assets/css/*.min.css
+assets/js/*.min.js
+assets/fonts/
+assets/webfonts/

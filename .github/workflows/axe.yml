@@ -1,73 +1,68 @@
 name: Axe accessibility testing
 
 on:
-  # if you want to run this on every push uncomment the following lines
-  # push:
-  #   branches:
-  #     - master
-  #     - main
-  # pull_request:
-  #   branches:
-  #     - master
-  #     - main
   workflow_dispatch:
     inputs:
       url:
-        description: "URL to be checked (e.g.: blog/)"
+        description: "Path to check, for example projects/"
         required: false
+
+permissions:
+  contents: read
 
 env:
   URL: ""
 
 jobs:
   check:
-    # available images: https://github.com/actions/runner-images#available-images
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm ci
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2.2"
           bundler-cache: true
-      - name: Update _config.yml ⚙️
-        uses: fjogeleit/yaml-update-action@main
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
         with:
-          commitChange: false
-          valueFile: "_config.yml"
-          changes: |
-            {
-              "giscus.repo": "${{ github.repository }}",
-              "baseurl": ""
-            }
-      - name: Install and Build 🔧
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Install ImageMagick
         run: |
-          pip3 install --upgrade jupyter
+          sudo apt-get update
+          sudo apt-get install --yes imagemagick
+          convert -version
+
+      - name: Build site
+        run: |
           export JEKYLL_ENV=production
           bundle exec jekyll build
-      - name: Purge unused CSS 🧹
-        run: |
-          npm install -g purgecss
-          purgecss -c purgecss.config.js
-      - name: Get Chromium version 🌐
-        # https://github.com/GoogleChromeLabs/chrome-for-testing?tab=readme-ov-file#other-api-endpoints
-        run: |
-          CHROMIUM_VERSION=$(wget -qO- https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE | cut -d. -f1)
-          echo "Chromium version: $CHROMIUM_VERSION"
-          echo "CHROMIUM_VERSION=$CHROMIUM_VERSION" >> $GITHUB_ENV
-      - name: Setup Chrome 🌐
+          npx --yes purgecss@6.0.0 -c purgecss.config.js
+
+      - name: Setup Chrome
         id: setup-chrome
         uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: ${{ env.CHROMIUM_VERSION }}
-      - name: Install chromedriver 🚗
+
+      - name: Run axe
         run: |
-          npm install -g chromedriver@$CHROMIUM_VERSION
-      - name: Run axe 🪓
-        # https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli
-        run: |
-          npm install -g @axe-core/cli
-          npm install -g http-server
+          npm install -g @axe-core/cli@4.10.2 http-server@14.1.1
           http-server _site/ &
-          axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver http://localhost:8080/${{ github.event.inputs.url || env.URL }} --load-delay=1500 --exit
+          axe "http://localhost:8080/${{ github.event.inputs.url || env.URL }}" --load-delay=1500 --exit

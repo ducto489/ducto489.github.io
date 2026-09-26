@@ -1,11 +1,11 @@
 ---
 layout: distill
 title: Quantum Random Walk
-description: The behavior of quantum random walks (QRWs) using the Creutz ladder model
+description: Studying confinement and localization in quantum random walks on the Creutz ladder
 img: assets/img/codethoigian-png.png
 importance: 1
 category: Physics
-disqus_comments: true
+disqus_comments: false
 date: 2024-08-29
 featured: true
 
@@ -21,7 +21,7 @@ authors:
 
 toc:
   - name: Overview
-  - name: Key Contributions
+  - name: Key Results
   - name: Visualization
   - name: Conclusion
   - name: Future Directions
@@ -29,10 +29,16 @@ toc:
 ---
 
 ## Overview
-In this project, we explored the behavior of quantum random walks (QRWs) using the Creutz ladder model, a quantum lattice structure known for its localization properties. Our focus was on examining how quantum particles behave within this confined system and comparing it to classical random walks (CRWs).
 
-## Key Contributions
-- **Classical and Quantum Walk Regimes**: We validated the expected diffusive behavior in CRWs and the ballistic regime in QRWs. These foundational insights highlight the differences between classical and quantum behavior in random walks.
+In this project, we studied classical and quantum random walks on the Creutz ladder, a lattice model with localization properties. Our goal was to compare the spreading behavior of classical random walks (CRWs) and quantum random walks (QRWs), then investigate how the ladder structure can confine the quantum walker.
+
+The implementation and supporting material are available in the [QRW-MaSSP2024 repository](https://github.com/ducto489/QRW-MaSSP2024).
+
+## Key Results
+
+- **Classical versus quantum spreading:** the simulations reproduce the expected diffusive behavior for CRWs and ballistic spreading for QRWs.
+- **Confinement on the Creutz ladder:** using a Grover coin and combinatorial arguments, we found conditions under which the walk remains confined to a bounded region.
+- **Numerical verification:** simulations support the analytical argument by showing zero probability outside the predicted confined range for the cases studied.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -40,18 +46,15 @@ In this project, we explored the behavior of quantum random walks (QRWs) using t
     </div>
 </div>
 
-- **Localization in the Creutz Ladder Model**: By introducing randomness through the Grover coin operator and applying combinatorial methods, we demonstrated that the quantum particle's movement is confined within a specific region. This result enhances our understanding of how structured lattices impact quantum behavior.
-
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/creutz_ladder_with_coin1.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
-- **Numerical Simulations**: We conducted numerical simulations that supported our analytical results, showing that the probability of the particle moving beyond a confined range is zero. This confirmation strengthens our findings and demonstrates the effectiveness of our methods.
-
 ## Visualization
-We visualized the quantum walk on the Creutz ladder, numerically verifying that the particle remains within a confined region. Additionally, we observed recurring patterns in the particle's location probability over time, which opens up new avenues for further research.
+
+The animation below visualizes the probability distribution of the quantum walker over time. In the simulated regime, the walker remains within the expected confined region and exhibits recurring probability patterns.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -60,18 +63,16 @@ We visualized the quantum walk on the Creutz ladder, numerically verifying that 
 </div>
 
 ## Conclusion
-These findings contribute significantly to our comprehension of QRWs and their potential applications. The demonstrated confinement of quantum walks within the Creutz ladder model suggests promising avenues for future research into controlled quantum systems and their practical implementations.
+
+The project provides a compact analytical and numerical study of confinement in a Creutz-ladder quantum walk. The results are best viewed as a preliminary investigation rather than a general statement about all quantum-walk systems.
 
 ## Future Directions
-- **Exploration of Alternative Lattice Models**: Investigate different lattice structures to understand how they affect QRW behavior and localization.
-  
-- **Development of Quantum Algorithms**: Utilize the confinement properties observed in this study to design quantum algorithms that require controlled particle movements.
-  
-- **Experimental Validation**: Conduct real-world experiments to verify the theoretical and numerical results of this study.
+
+- Study other lattice geometries and coin operators.
+- Characterize which parameters preserve or break confinement.
+- Compare the analytical predictions with larger numerical experiments.
+- Explore whether the confinement mechanism can be useful in controlled quantum-information protocols.
 
 ## Learn More
-For a deeper dive into our work, including detailed equations, proofs, and data, refer to our [full report](https://ducto489.github.io/assets/pdf/Report___Group_1.pdf).
 
----
-
-*This project was a collaborative effort under the guidance of our mentors and head mentors. The findings represent a preliminary study in the field of quantum random walks, with opportunities for further exploration and learning.*
+For the derivations, proofs, and numerical details, see the [full report](/assets/pdf/Report___Group_1.pdf).

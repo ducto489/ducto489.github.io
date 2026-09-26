@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Project
+title: Projects
 permalink: /projects/
-description: # A growing collection of your cool projects.
+description: Selected projects in machine learning, physics, and scientific computing.
 nav: true
 nav_order: 3
 display_categories: [Machine Learning, Physics]
