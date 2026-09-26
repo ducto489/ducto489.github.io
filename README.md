@@ -14,7 +14,7 @@ The site is built with Jekyll and is based on the [al-folio](https://github.com/
 
 ## Local development
 
-The CI configuration uses Ruby 3.2.2 and Node.js 20.
+The CI configuration uses Ruby 3.2.2 and Node.js 24.
 
 ```bash
 bundle install
