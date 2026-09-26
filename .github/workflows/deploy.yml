@@ -37,28 +37,15 @@ jobs:
       - name: Install Node dependencies
         run: npm ci
 
-      - name: Format sources
-        run: npm run format
-
-      - name: Commit formatting on this PR branch
-        if: github.event_name == 'pull_request'
-        run: |
-          if ! git diff --quiet; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add _config.yml _pages _projects .github/workflows assets/json
-            git commit -m "style: format portfolio sources"
-            git push
-          fi
+      - name: Check formatting
+        run: npm run format:check
 
       - name: Check external source links
-        continue-on-error: true
         uses: lycheeverse/lychee-action@v2
         with:
           fail: false
           args: >-
             --user-agent 'Mozilla/5.0'
-            --exclude-mail
             --verbose
             --no-progress
             './_pages/**/*.md'
