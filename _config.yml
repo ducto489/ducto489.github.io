@@ -9,8 +9,6 @@ last_name: Nguyen
 email: dustnn00@gmail.com
 description: "Personal portfolio of Dustin Nguyen, a physics undergraduate working across machine learning, quantum computing, and scientific computing."
 footer_text: ""
-  # Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
-  # Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
 keywords: "physics, machine learning, quantum computing, OCR, scientific computing, research, portfolio"
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: faviconphoto.jpg # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
