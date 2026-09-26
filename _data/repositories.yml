@@ -4,10 +4,7 @@ github_users:
 repo_description_lines_max: 2
 
 github_repos:
-  - alshedivat/al-folio
-  - jekyll/jekyll
-  - twbs/bootstrap
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - mathjax/MathJax
-  - jpswalsh/academicons
+  - ducto489/lib_ocr
+  - ducto489/test-time-adaptation
+  - ducto489/QRW-MaSSP2024
+  - ducto489/cycloid

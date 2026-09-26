@@ -1,11 +1,11 @@
 ---
 layout: distill
 title: VietConizer, Vietnamese OCR with NVIDIA DALI
-description: Using DALI to speedup data processing in OCR
+description: Using NVIDIA DALI to speed up data processing for OCR training
 img: assets/img/dali-ocr.jpeg
 importance: 1
 category: Machine Learning
-disqus_comments: true
+disqus_comments: false
 date: 2024-05-14
 featured: true
 
@@ -26,14 +26,14 @@ toc:
   - name: 7. Analysis and Conclusion
 ---
 
-For a detailed exploration of the code, and methods, you can view this [Github Repo](https://github.com/ducto489/lib_ocr). You can see how we perform inference with our pretrained model in [notebook](https://github.com/ducto489/lib_ocr/blob/training/inference/inference.ipynb).
+For a detailed exploration of the code, and methods, you can view this [GitHub repository](https://github.com/ducto489/lib_ocr). You can see how we perform inference with our pretrained model in [notebook](https://github.com/ducto489/lib_ocr/blob/training/inference/inference.ipynb).
 
 # Accelerating OCR Training with NVIDIA DALI: A Practical Guide and Case Study
 ## 1. Introduction
 
 Training Deep Learning models for Optical Character Recognition (OCR) often involves complex data loading and augmentation pipelines. These preprocessing steps, if not optimized, can become a significant bottleneck, leaving expensive GPU resources underutilized and prolonging training times. 
 
-This document outlines our approach to leveraging the **NVIDIA Data Loading Library (DALI)** to accelerate the training process for our **ResNet + BiLSTM + Attention** OCR model built with **PyTorch Lightning**. We demonstrate substantial speedups compared to standard data loading methods and showcase the importance of hardware-aware pipeline configuration.
+This document outlines our approach to leveraging the **NVIDIA Data Loading Library (DALI)** to accelerate the training process for our **ResNet + BiLSTM + Attention** OCR model built with **PyTorch Lightning**. We demonstrate substantial speed-ups compared to standard data loading methods and showcase the importance of hardware-aware pipeline configuration.
 
 ## 2. Data Processing and Details
 
@@ -138,7 +138,7 @@ To feed data into the PyTorch Lightning training loop, we wrap the DALI pipeline
 
 We tested our DALI implementation across different hardware setups against a baseline PyTorch DataLoader (`No DALI`).
 
-**(Note:** Dataset size and specifics impact absolute times, but relative speedups are indicative.)
+**(Note:** Dataset size and specifics impact absolute times, but relative speed-ups are indicative.)
 
 ### Case 1 High-End GPU with Strong CPU (NVIDIA A6000)
 <div class="row mt-3">
@@ -172,6 +172,6 @@ Our experiments clearly demonstrate that:
 
 1.  **DALI significantly reduces OCR training time** when the data pipeline is a bottleneck (up to ~25% speedup observed on L4).
 2.  The **optimal placement of DALI operations (CPU vs. GPU) is hardware-dependent.** Tuning the `device` parameter for operators is crucial for maximizing performance.
-3.  **I/O is critical.** On systems with slow storage, optimizing the *dataset format and reading method* (e.g., using WebDataset with DALI's readers) is essential *before* DALI's processing speedups can be fully realized.
+3.  **I/O is critical.** On systems with slow storage, optimizing the *dataset format and reading method* (e.g., using WebDataset with DALI's readers) is essential *before* DALI's processing speed-ups can be fully realized.
 
 By correctly identifying bottlenecks and leveraging DALI's optimized kernels, parallelism, and hardware-adaptive execution, we can significantly accelerate OCR model training, enabling faster experimentation and development.

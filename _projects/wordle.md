@@ -1,47 +1,52 @@
 ---
 layout: distill
-title: Reinforcement Learning play Worlde
-description: Using reinforcement learning to train a bot play wordle
+title: Reinforcement Learning for Wordle
+description: Training an A2C agent to solve small Wordle environments
 img: assets/img/wordle.png
 importance: 2
 category: Machine Learning
-disqus_comments: true
+disqus_comments: false
 date: 2024-09-15
 featured: true
 
 toc:
   - name: Overview
-  - name: Project Structure
-  - name: Training
+  - name: Environment and Setup
+  - name: Training Strategy
   - name: Challenges
-  - name: Reflections on Reinforcement Learning from this Project
+  - name: Takeaways
 ---
 
 ## Overview
 
-For a detailed exploration of the code, and methods, you can view this [Kaggle Notebook](https://www.kaggle.com/dustnn/wordle-training).
+The experiment is available in this [Kaggle notebook](https://www.kaggle.com/dustnn/wordle-training).
 
-I recently done a project where I used reinforcement learning (RL) to solve Wordle, a popular word puzzle game. By leveraging the power of machine learning, I trained an RL agent to learn how to guess words based on feedback. But this project is not complete yet, there are spaces for improvement and my model can't run on the full dataset yet.
+I used reinforcement learning to explore Wordle as a sequential decision-making problem. The agent receives the standard Wordle-style feedback after each guess and learns a policy over a restricted vocabulary. The project is intentionally experimental: the smaller environments train, but the current approach does not yet scale well to the complete Wordle vocabulary.
 
-## Project Structure
+## Environment and Setup
 
-- **Source Environment**: [wordle-solver](https://github.com/andrewkho/wordle-solver). I customized their environment and used their hyperparameters for training.
-- **Vectorized Environment**: To make training more efficient, I used a vectorized environment with DummyVecEnv, allowing the agent to train across multiple Wordle instances simultaneously.
-- **First step**: In my setting, I choose the word 'crate' to optimize the information which the model can guess after fist step. It is indeed make the training sped up because the several first mean reward before I use this setting is negative but after using, it is positive mean reward
+- **Base environment:** adapted from [andrewkho/wordle-solver](https://github.com/andrewkho/wordle-solver).
+- **Algorithm:** Advantage Actor-Critic (A2C).
+- **Vectorized environment:** DummyVecEnv was used to run multiple environment instances through the same training interface.
+- **Fixed opening guess:** the first guess is set to `crate` so the learning problem starts from a consistent information-rich state.
 
-## Training
-Training was conducted using A2C. I trained the agent using the first 10 words from the official Wordle vocabulary first and using 10 action to represent the word the model can choose, gradually teaching the model to make better word guesses. After the mean reward is great, I transfer learning to train on first 100 words and 100 action. And after that I train on the full dataset which include 2315 words and 2315 words
+Fixing the first move reduces the number of decisions the agent must learn and made the early reward signal more stable in my experiments.
+
+## Training Strategy
+
+I first trained on a toy environment containing 10 candidate words and 10 possible actions. After the agent learned that setting, I expanded the vocabulary to 100 words and transferred the model parameters.
+
+The longer-term target is the full 2,315-word answer vocabulary. The action space grows with the vocabulary, so the simple discrete-action formulation becomes increasingly expensive and sample-inefficient.
 
 ## Challenges
-I face with a problem is that the training is too long. When I train on the first 10 words. The learning is fast. But when I transfer learning, the model is learning too slow. I spend 7 hours on training 100 words model but it get 25% right mean answer. But it is better than random guess which is 6%. 
 
-## Reflections on Reinforcement Learning from this Project
+The main issue is scaling. Training is fast on the 10-word environment, but learning slows substantially as the vocabulary grows. In one 100-word run, approximately seven hours of training produced a success rate around **25%**. That is better than the simple random baseline used in the experiment, but still far from a practical Wordle solver.
 
-My experience with this Wordle solver project has reinforced several key insights about Reinforcement Learning:
+The experiment also highlights an important modeling issue: treating every word as an unrelated discrete action discards spelling and letter-level structure. A more scalable agent should exploit that structure rather than learning an independent action value for every word.
 
--   **Power and Promise**: RL is undeniably a very strong and promising approach, especially for problems where the optimal strategy is not obvious or easy to codify, and learning from interaction is key.
--   **Training Cost**: The major hurdle with RL is often the significant computational cost and time required for training, particularly as the state and action spaces grow. This project clearly demonstrates that challenge.
--   **When to Consider RL**: RL truly shines when other, more direct algorithms are not readily applicable or effective. If a problem lacks a clear, derivable heuristic or if an exhaustive search is infeasible, RL offers a path to discover solutions. However, its demanding nature means it should be carefully considered against potentially simpler alternatives if they exist.
+## Takeaways
 
----
-
+- RL can learn useful policies in small Wordle environments, but sample efficiency becomes a major constraint as the action space grows.
+- A fixed opening move simplifies the task, although it also removes one decision from the policy.
+- For the full game, structured search, entropy-based heuristics, supervised pretraining, or an action representation based on word features may be more efficient than plain discrete-action RL.
+- This project is most useful as an RL scaling experiment rather than as a competitive Wordle solver.
