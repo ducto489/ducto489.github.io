@@ -22,4 +22,4 @@
 
 * https://www.kaggle.com/dustnn/wordle-training --[302]--> https://www.kaggle.com/code/dustnn/wordle-training
 
-[Full Github Actions output](https://github.com/ducto489/ducto489.github.io/actions/runs/36225647455?check_suite_focus=true)
+[Full Github Actions output](https://github.com/ducto489/ducto489.github.io/actions/runs/36290074652?check_suite_focus=true)
